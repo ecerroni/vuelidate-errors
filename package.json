@@ -1,0 +1,64 @@
+{
+  "name": "vuelidate-errors",
+  "version": "0.0.1",
+  "description": "Helper for improved handling of vuelidate errors",
+  "license": "MIT",
+  "repository": "ecerroni/vuelidate-errors",
+  "main": "lib/index.js",
+  "author": {
+    "name": "ric0",
+    "email": "e.cerroni@gmail.com",
+    "url": "https://github.com/ecerroni"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "postcoverage": "opn coverage/lcov-report/index.html",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix .",
+    "clean": "rimraf dist",
+    "build-node": "babel ./src --out-dir ./lib --source-maps",
+    "prebuild": "npm run clean",
+    "build": "npm run build-node",
+    "preversion": "npm run lint && npm test && npm run build",
+    "version": "standard-changelog && git add CHANGELOG.md",
+    "postpublish": "git push vuelidate-errors master --follow-tags"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "vuelidate",
+    "form",
+    "validations",
+    "vue",
+    "errors"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^1.1.2",
+    "lint-staged": "^7.3.0",
+    "opn-cli": "^3.1.0",
+    "prettier": "^1.14.3",
+    "rimraf": "^2.6.2",
+    "standard-changelog": "^2.0.1"
+  }
+}
