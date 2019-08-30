@@ -4,31 +4,42 @@
 -->
 
 <tests for="@/components/Form.vue">
-  <test name="render message correctly" :props="props">
+  <test name="render message correctly">
     <expect text to-match="Sign In" />
   </test>
   
   <test name="email field is required with default">
     <trigger selector="button" event="click" />
-    <expect text :to-match="errors.email.required.default" />
+    <expect text-of="#email-error-message"  :to-match="errors.email.required.default" />
   </test>
 
-  <test name="email field is required with default message using field names" :props="props">
+  <test name="email field is required with default message using field names" :props="propsUseFieldNames">
     <trigger selector="button" event="click" />
     <expect text-of="#email-error-message" :to-match="errors.email.required.useFieldNames" />
+  </test>
+
+  <test name="email field is required with custom message" :props="propsCustomErrorMessages">
+    <trigger selector="button" event="click" />
+    <expect text-of="#email-error-message" :to-match="errors.email.required.custom" />
   </test>
 </tests>
 
 <script>
+import customErrorMessages from './custom-error-messages'
 let context = {
-  props: {
+  propsUseFieldNames: {
     useFieldNames: true,
   },
+  propsCustomErrorMessages: {
+    customErrorMessages,
+  },
+  customErrorMessages,
   errors: {
       email: {
         required: {
           default: 'This field is required',
-          useFieldNames: 'email is required'
+          useFieldNames: 'email is required',
+          custom: customErrorMessages.email.required
         }
       }
     }

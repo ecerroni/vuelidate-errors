@@ -1,0 +1,52 @@
+<!-- 
+  Create a new Vue CLI project with mocha unit testing, then place this file into
+  /tests/declarative (you'll have to create this directory).
+-->
+
+<tests for="@/components/Form.vue">
+  <test name="render message correctly">
+    <expect text to-match="Sign In" />
+  </test>
+  
+  <test name="email is not valid">
+    <set selector="#email" value="email" />
+    <expect text-of="#email-error-message"  t :to-match="errors.email.email.default" />
+  </test>
+
+  <test name="email is not valid with message using field names" :props="propsUseFieldNames">
+    <set selector="#email" value="email" />
+    <expect text-of="#email-error-message" :to-match="errors.email.email.useFieldNames" />
+  </test>
+
+  <test name="email is not valid with custom message"  :props="propsCustomErrorMessages">
+    <set selector="#email" value="email@com" />
+    <expect text-of="#email-error-message" :to-match="customErrorMessages.email.email" />
+  </test>
+  
+  <test name="email is valid">
+    <set selector="#email" value="email@email.com" />
+    <expect text-of="#email-error-message" to-be-falsy />
+  </test>
+</tests>
+
+<script>
+import customErrorMessages from './custom-error-messages'
+let context = {
+  propsUseFieldNames: {
+    useFieldNames: true,
+  },
+  propsCustomErrorMessages: {
+    customErrorMessages,
+  },
+  customErrorMessages,
+  errors: {
+      email: {
+        email: {
+          default: 'This is not a valid email',
+          useFieldNames: 'This email is not a valid email',
+          custom: customErrorMessages.email.email
+        }
+      }
+    }
+};
+</script>

@@ -80,12 +80,16 @@ export default {
     useFieldNames: {
       type: Boolean,
       default: false,
+    },
+    customErrorMessages: {
+      type: Object,
+      default: () => ({})
     }
   },
   validations: {
     email: {
       required,
-      minLength: minLength(4),
+      email,
     },
     password: {
       required,
@@ -101,14 +105,9 @@ export default {
   },
   computed: {
     errors() {
-      const errorMsg = {
-        password: {
-          minLength: "The password length should be 6",
-        },
-      }
       return errorValidations({
         useFieldNames: this.useFieldNames, // default true
-        customErrorMessages: errorMsg, // default {}
+        customErrorMessages: this.customErrorMessages, // default {}
         v: this.$v // required
       })
     }

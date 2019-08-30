@@ -8,7 +8,7 @@ export default (useFieldNames, v) => (validator, field) => {
         errorMsg = `${field} is required`;
         break;
       case 'email':
-        errorMsg = `This ${field} is not valid email`;
+        errorMsg = `This ${field} is not a valid email`;
         break;
       case 'url':
         errorMsg = `This ${field} is not a valid url`;
