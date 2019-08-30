@@ -1,0 +1,40 @@
+{
+  "name": "vue-test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "test:declarative": "vue-test-declarative"
+  },
+  "dependencies": {
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-unit-mocha": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "browser-env": "^3.2.6",
+    "chai": "^4.1.2",
+    "expect": "^24.9.0",
+    "jsdom": "^15.1.1",
+    "jsdom-global": "^3.0.2",
+    "mocha": "5",
+    "mochapack": "^1.1.4",
+    "vue-template-compiler": "^2.6.10",
+    "vue-test-declarative": "^1.1.1",
+    "vuelidate": "^0.7.4"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

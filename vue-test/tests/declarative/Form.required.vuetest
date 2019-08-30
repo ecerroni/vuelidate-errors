@@ -1,0 +1,36 @@
+<!-- 
+  Create a new Vue CLI project with mocha unit testing, then place this file into
+  /tests/declarative (you'll have to create this directory).
+-->
+
+<tests for="@/components/Form.vue">
+  <test name="render message correctly" :props="props">
+    <expect text to-match="Sign In" />
+  </test>
+  
+  <test name="email field is required with default">
+    <trigger selector="button" event="click" />
+    <expect text :to-match="errors.email.required.default" />
+  </test>
+
+  <test name="email field is required with default message using field names" :props="props">
+    <trigger selector="button" event="click" />
+    <expect text-of="#email-error-message" :to-match="errors.email.required.useFieldNames" />
+  </test>
+</tests>
+
+<script>
+let context = {
+  props: {
+    useFieldNames: true,
+  },
+  errors: {
+      email: {
+        required: {
+          default: 'This field is required',
+          useFieldNames: 'email is required'
+        }
+      }
+    }
+};
+</script>
