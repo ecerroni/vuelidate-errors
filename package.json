@@ -23,7 +23,7 @@
     "build": "npm run build-node",
     "preversion": "npm run lint && npm test && npm run build",
     "version": "standard-changelog && git add CHANGELOG.md",
-    "postpublish": "git push vuelidate-errors master --follow-tags"
+    "postpublish": "git push https://github.com/ecerroni/vuelidate-errors master --follow-tags"
   },
   "husky": {
     "hooks": {

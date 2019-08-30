@@ -1,102 +1,76 @@
+import defaultErrorsFn from './_default-errors';
+
 export default ({
   useFieldNames = true,
   customErrorMessages = {},
-  v = null
+  v = null,
 } = {}) => {
-  if (!v) return {}
-  const validators = ['required', 'email', 'minLength', 'sameAs', 'url']
-  const errorMsg = customErrorMessages
+  if (!v) return {};
+  const defaultErrors = defaultErrorsFn(useFieldNames, v);
+  const validators = ['required', 'email', 'minLength', 'sameAs', 'url'];
+  const errorMsg = customErrorMessages;
   const errorConditions = (validator, field) => {
-    let hasError
+    let hasError;
     switch (validator) {
       case 'required':
-        hasError = !v[field].$model && v[field].$error
+        hasError = !v[field].$model && v[field].$error;
         break;
       case 'email':
-        hasError = v[field].$model && v[field].$invalid
-        break
+        hasError = v[field].$model && v[field].$invalid;
+        break;
       case 'url':
-        hasError = v[field].$model && v[field].$invalid
-        break
+        hasError = v[field].$model && v[field].$invalid;
+        break;
       case 'minLength':
-        hasError = !v[field].minLength
-        break
+        hasError = !v[field].minLength;
+        break;
       case 'sameAs':
-        hasError = v[v[field].$params.sameAs.eq].$model !== v[field].$model
-        break
+        hasError = v[v[field].$params.sameAs.eq].$model !== v[field].$model;
+        break;
       default:
         hasError = false;
-        break
-    }
-    return hasError
-  };
-  const defaultErrors = (validator, field) => {
-    let errorMsg = 'error'
-    let param = v[field].$params[validator]
-    if (!param) return errorMsg
-    if (useFieldNames) {
-      switch (validator) {
-        case 'required':
-          errorMsg = `${field} is required`
-          break;
-        case 'email':
-          errorMsg = `This ${field} is not valid email`
-          break
-        case 'url':
-          errorMsg = `This ${field} is not a valid url`
-          break
-        case 'minLength':
-          errorMsg = `${field} has to be at least ${param.min} characters length`
-          break
-        case 'sameAs':
-          errorMsg = `${field} should be same as ${param.eq} field`
-          break
-        default:
-          break
-      }
-      return errorMsg
-    }
-    switch (validator) {
-      case 'required':
-        errorMsg = 'This field is required'
         break;
-      case 'email':
-        errorMsg = 'This is not a valid email'
-        break
-      case 'minLength':
-        errorMsg = `This field has to be at least ${param.min} characters length`
-        break
-      case 'sameAs':
-        errorMsg = `This field should be same as ${param.eq} field`
-        break
-      default:
-        break
     }
-    return errorMsg
-  }
+    return hasError;
+  };
 
-  const validations = Object.keys(v.$params) // .filter(key => !key.includes('$'))
+  const validations = Object.keys(v.$params); // .filter(key => !key.includes('$'))
   const errors = {
-    ...validations.reduce((o, k) => ({
-      ...o,
-      [k]: {
-        ...validators.map(validator => v[k].hasOwnProperty(validator) && errorConditions(validator, k) && { [validator]: (errorMsg && errorMsg[k] && errorMsg[k][validator]) || defaultErrors(validator, k), validator })
-      }
-    }), {}),
-  }
+    ...validations.reduce(
+      (o, k) => ({
+        ...o,
+        [k]: {
+          ...validators.map(
+            validator =>
+              v[k].hasOwnProperty(validator) && // eslint-disable-line no-prototype-builtins
+              errorConditions(validator, k) && {
+                [validator]:
+                  (errorMsg && errorMsg[k] && errorMsg[k][validator]) ||
+                  defaultErrors(validator, k),
+                validator,
+              }
+          ),
+        },
+      }),
+      {}
+    ),
+  };
 
   return {
     ...Object.entries(errors).reduce((obj, entry) => {
-      const errors = Object.keys(entry[1]).map(key => entry[1][key]).filter(err => !!err)
-      const isError = errors.length > 0
+      const errors = Object.keys(entry[1]) // eslint-disable-line no-shadow
+        .map(key => entry[1][key])
+        .filter(err => !!err);
+      const isError = errors.length > 0;
       return {
         ...obj,
         [entry[0]]: {
           hasError: isError,
-          errorMessage: isError ? errors[errors.length - 1][errors[errors.length - 1].validator] : ''
-        }
-      }
-    }, {})
-
-  }
-}
+          errorMessage: isError
+            ? errors[errors.length - 1][errors[errors.length - 1].validator]
+            : '',
+        },
+      };
+    }, {}),
+  };
+};
