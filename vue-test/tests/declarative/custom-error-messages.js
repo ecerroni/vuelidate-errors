@@ -1,7 +1,12 @@
 export default {
   email: {
     email: 'Please, insert a valid email',
-    required: 'An email address is needed'
+    required: 'An email address is needed',
+  },
+  emailWithLength: {
+    email: 'Please, insert a valid email',
+    required: 'An email address is needed',
+    minLength: 'This is too short'
   },
   url: {
     url: 'Please, insert a valid url',
