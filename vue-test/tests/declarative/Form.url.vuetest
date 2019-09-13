@@ -1,0 +1,52 @@
+<!-- 
+  Create a new Vue CLI project with mocha unit testing, then place this file into
+  /tests/declarative (you'll have to create this directory).
+-->
+
+<tests for="@/components/Form.vue">
+  <test name="render message correctly">
+    <expect text to-match="Sign In" />
+  </test>
+  
+  <test name="url is not valid">
+    <set selector="#url" value="url" />
+    <expect text-of="#url-error-message"  t :to-match="errors.url.url.default" />
+  </test>
+
+  <test name="url is not valid with message using field names" :props="propsUseFieldNames">
+    <set selector="#url" value="url" />
+    <expect text-of="#url-error-message" :to-match="errors.url.url.useFieldNames" />
+  </test>
+
+  <test name="url is not valid with custom message"  :props="propsCustomErrorMessages">
+    <set selector="#url" value="url@com" />
+    <expect text-of="#url-error-message" :to-match="customErrorMessages.url.url" />
+  </test>
+  
+  <test name="url is valid">
+    <set selector="#url" value="https://url.com" />
+    <expect text-of="#url-error-message" to-be-falsy />
+  </test>
+</tests>
+
+<script>
+import customErrorMessages from './custom-error-messages'
+let context = {
+  propsUseFieldNames: {
+    useFieldNames: true,
+  },
+  propsCustomErrorMessages: {
+    customErrorMessages,
+  },
+  customErrorMessages,
+  errors: {
+      url: {
+        url: {
+          default: 'This is not a valid url',
+          useFieldNames: 'url is not a valid url',
+          custom: customErrorMessages.url.url
+        }
+      }
+    }
+};
+</script>

@@ -43,7 +43,7 @@ let context = {
       email: {
         email: {
           default: 'This is not a valid email',
-          useFieldNames: 'This email is not a valid email',
+          useFieldNames: 'email is not a valid email',
           custom: customErrorMessages.email.email
         }
       }

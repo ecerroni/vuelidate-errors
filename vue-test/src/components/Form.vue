@@ -25,6 +25,27 @@
           {{ errors.email.hasError ? errors.email.errorMessage : '' }}
         </p>
       </div>
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="url"
+        >
+        Url
+        </label>
+        <input
+          id="url"
+          v-model.trim="$v.url.$model"
+          :class="`shadow appearance-none border rounded ${ errors.url.hasError ? 'border-red-500' : ''} w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`"
+          type="text"
+          placeholder="Url"
+        >
+        <p
+          id="url-error-message"
+          class="text-red-500 text-xs italic h-4"
+        >
+          {{ errors.url.hasError ? errors.url.errorMessage : '' }}
+        </p>
+      </div>
       <div class="mb-6">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
@@ -91,6 +112,10 @@ export default {
       required,
       email,
     },
+    url: {
+      required,
+      url,
+    },
     password: {
       required,
       minLength: minLength(6),
@@ -99,6 +124,7 @@ export default {
   data() {
     return {
       email: '',
+      password: '',
       password: '',
       form: 'not valid'
     };

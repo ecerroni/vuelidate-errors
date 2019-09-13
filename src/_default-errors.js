@@ -8,10 +8,10 @@ export default (useFieldNames, v) => (validator, field) => {
         errorMsg = `${field} is required`;
         break;
       case 'email':
-        errorMsg = `This ${field} is not a valid email`;
+        errorMsg = `${field} is not a valid email`;
         break;
       case 'url':
-        errorMsg = `This ${field} is not a valid url`;
+        errorMsg = `${field} is not a valid url`;
         break;
       case 'minLength':
         errorMsg = `${field} has to be at least ${param.min} characters length`;
@@ -30,6 +30,9 @@ export default (useFieldNames, v) => (validator, field) => {
       break;
     case 'email':
       errorMsg = 'This is not a valid email';
+      break;
+    case 'url':
+      errorMsg = 'This is not a valid url';
       break;
     case 'minLength':
       errorMsg = `This field has to be at least ${param.min} characters length`;
