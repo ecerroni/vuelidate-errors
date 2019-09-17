@@ -171,7 +171,7 @@ export default {
 - [ ] address
 - [ ] ipAddress
 - [ ] macAddress
-- [ ] sameAs
+- [x] sameAs
 - [x] url
 - [ ] or
 - [ ] and

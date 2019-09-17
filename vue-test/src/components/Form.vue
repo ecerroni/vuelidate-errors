@@ -25,7 +25,8 @@
           {{ errors.email.hasError ? errors.email.errorMessage : '' }}
         </p>
       </div>
-            <div class="mb-4">
+
+      <div class="mb-4">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
           for="email-with-length"
@@ -46,6 +47,7 @@
           {{ errors.emailWithLength.hasError ? errors.emailWithLength.errorMessage : '' }}
         </p>
       </div>
+
       <div class="mb-4">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
@@ -67,6 +69,7 @@
           {{ errors.url.hasError ? errors.url.errorMessage : '' }}
         </p>
       </div>
+
       <div class="mb-6">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
@@ -88,6 +91,30 @@
           {{ errors.password.hasError ? errors.password.errorMessage : '' }}
         </p>
       </div>
+      
+      <div class="mb-6">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="confirm-password"
+        >
+          Confirm Password
+        </label>
+        <input
+          id="confirm-password"
+          v-model.trim="$v.confirmPassword.$model"
+          :class="`shadow appearance-none border ${ $v.confirmPassword.$error ? 'border-red-500' : ''} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`"
+          type="password"
+          placeholder="******************"
+          @keyup.enter="submitForm"
+        >
+        <p
+          id="confirm-password-error-message"
+          class="text-red-500 text-xs italic h-4"
+        >
+          {{ errors.confirmPassword.hasError ? errors.confirmPassword.errorMessage : '' }}
+        </p>
+      </div>
+
       <div class="flex items-center justify-between">
         <button
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -144,6 +171,9 @@ export default {
     password: {
       required,
       minLength: minLength(6),
+    },
+    confirmPassword: {
+      sameAs: sameAs('password'),
     }
   },
   data() {
@@ -151,7 +181,7 @@ export default {
       email: '',
       emailWithLength: '',
       password: '',
-      password: '',
+      confirmPassword: '',
       form: 'not valid'
     };
   },

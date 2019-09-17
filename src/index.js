@@ -25,7 +25,10 @@ export default ({
         hasError = !v[field].minLength;
         break;
       case 'sameAs':
-        hasError = v[v[field].$params.sameAs.eq].$model !== v[field].$model;
+        hasError =
+          v[v[field].$params.sameAs.eq].$model &&
+          v[field].$model &&
+          v[v[field].$params.sameAs.eq].$model !== v[field].$model;
         break;
       default:
         hasError = false;

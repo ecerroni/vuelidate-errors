@@ -12,4 +12,7 @@ export default {
     url: 'Please, insert a valid url',
     required: 'An url address is needed',
   },
+  confirmPassword: {
+    sameAs: 'This does not match the password field',
+  },
 };

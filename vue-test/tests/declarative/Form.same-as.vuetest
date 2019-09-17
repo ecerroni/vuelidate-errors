@@ -1,0 +1,63 @@
+<!-- 
+  Create a new Vue CLI project with mocha unit testing, then place this file into
+  /tests/declarative (you'll have to create this directory).
+-->
+
+<tests for="@/components/Form.vue">
+  <test name="render message correctly">
+    <expect text to-match="Sign In" />
+  </test>
+  
+  <test name="password do not match with default error message">
+    <set selector="#password" value="123456" />
+    <set selector="#confirm-password" value="1234567" />
+    <expect text-of="#confirm-password-error-message"  :to-match="errors.confirmPassword.sameAs.default" />
+  </test>
+  
+  <test name="password do not match with message using field names" :props="propsUseFieldNames">
+    <set selector="#password" value="123456" />
+    <set selector="#confirm-password" value="1234567" />
+    <expect text-of="#confirm-password-error-message"  :to-match="errors.confirmPassword.sameAs.useFieldNames" />
+  </test>
+
+  <test name="password do not match with custom message"  :props="propsCustomErrorMessages">
+    <set selector="#password" value="123456" />
+    <set selector="#confirm-password" value="1234567" />
+    <expect text-of="#confirm-password-error-message"  :to-match="customErrorMessages.confirmPassword.sameAs" />
+  </test>
+  
+  <test name="confirm password wait for input before throwing error">
+    <set selector="#password" value="" />
+    <set selector="#confirm-password" value="" />
+    <expect text-of="#confirm-password-error-message" to-be-falsy />
+  </test>
+
+  <test name="password do match">
+    <set selector="#password" value="123456" />
+    <set selector="#confirm-password" value="123456" />
+    <expect text-of="#confirm-password-error-message" to-be-falsy />
+  </test>
+
+</tests>
+
+<script>
+import customErrorMessages from './custom-error-messages'
+let context = {
+  propsUseFieldNames: {
+    useFieldNames: true,
+  },
+  propsCustomErrorMessages: {
+    customErrorMessages,
+  },
+  customErrorMessages,
+  errors: {
+      confirmPassword: {
+        sameAs: {
+          default: 'This field should be same as password field',
+          useFieldNames: 'confirmPassword should be same as password field',
+          custom: customErrorMessages.confirmPassword.sameAs
+        }
+      }
+    }
+};
+</script>
