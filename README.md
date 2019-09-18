@@ -161,7 +161,7 @@ export default {
 - [x] maxLength
 - [ ] minValue
 - [ ] maxValue
-- [ ] between
+- [x] between
 - [ ] alpha
 - [ ] alphaNum
 - [ ] numeric
