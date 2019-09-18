@@ -20,6 +20,9 @@ export default (useFieldNames, v) => (validator, field) => {
         errorMsg = `${field} has to be less than ${param.max +
           1} characters length`;
         break;
+      case 'between':
+        errorMsg = `${field} has to be between ${param.min} and ${param.max} characters in length`;
+        break;
       case 'sameAs':
         errorMsg = `${field} should be same as ${param.eq} field`;
         break;
@@ -44,6 +47,9 @@ export default (useFieldNames, v) => (validator, field) => {
     case 'maxLength':
       errorMsg = `This field has to be less than ${param.max +
         1} characters length`;
+      break;
+    case 'between':
+      errorMsg = `This field has to be between ${param.min} and ${param.max} characters in length`;
       break;
     case 'sameAs':
       errorMsg = `This field should be same as ${param.eq} field`;

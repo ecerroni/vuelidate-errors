@@ -8,24 +8,20 @@
     <expect text to-match="Sign In" />
   </test>
   
-  <test name="email is valid, but short">
-    <set selector="#email-with-length" value="email@email.com" />
-    <expect text-of="#email-with-length-error-message"  t :to-match="errors.emailWithLength.minLength.default" />
+  <test name="number not in range">
+    <set selector="#number-between" value="email@email.com" />
+    <expect text-of="#number-between-error-message"  t :to-match="errors.numberBetween.between.default" />
   </test>
 
-  <test name="email is valid, but short with message using field names" :props="propsUseFieldNames">
-    <set selector="#email-with-length" value="email@email.com" />
-    <expect text-of="#email-with-length-error-message" :to-match="errors.emailWithLength.minLength.useFieldNames" />
+  <test name="number is not in range with message using field names" :props="propsUseFieldNames">
+    <set selector="#number-between" value="email@email.com" />
+    <expect text-of="#number-between-error-message" :to-match="errors.numberBetween.between.useFieldNames" />
   </test>
 
-  <test name="email is long enough though not valid">
-    <set selector="#email-with-length" value="email@com123456789123456789" />
-    <expect text-of="#email-with-length-error-message" :to-match="errors.emailWithLength.email.default" />
-  </test>
   
-  <test name="email is valid and long enough">
-    <set selector="#email-with-length" value="very-long-email-address@email.com" />
-    <expect text-of="#email-with-length-error-message" to-be-falsy />
+  <test name="number is in range">
+    <set selector="#number-between" value="5" />
+    <expect text-of="#number-between-error-message" to-be-falsy />
   </test>
 </tests>
 
@@ -43,14 +39,14 @@ let context = {
   },
   customErrorMessages,
   errors: {
-      emailWithLength: {
+      numberBetween: {
         email: {
           default: 'This is not a valid email'
         },
-        minLength: {
-          default: 'This field has to be at least 17 characters length',
-          useFieldNames: 'emailWithLength has to be at least 17 characters length',
-          custom: customErrorMessages.email.emailWithLength
+        between: {
+          default: 'This field has to be between 3 and 7 characters in length',
+          useFieldNames: 'numberBetween has to be between 3 and 7 characters in length',
+          custom: customErrorMessages.email.numberBetween
         }
       }
     }

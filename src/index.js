@@ -12,6 +12,7 @@ export default ({
     'email',
     'minLength',
     'maxLength',
+    'between',
     'sameAs',
     'url',
   ];
@@ -33,6 +34,9 @@ export default ({
         break;
       case 'maxLength':
         hasError = !v[field].maxLength;
+        break;
+      case 'between':
+        hasError = !v[field].between;
         break;
       case 'sameAs':
         hasError =

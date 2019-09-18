@@ -73,6 +73,28 @@
       <div class="mb-4">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
+          for="number-between"
+        >
+        Number Between
+        </label>
+        <input
+          id="number-between"
+          v-model.trim="$v.numberBetween.$model"
+          :class="`shadow appearance-none border rounded ${ errors.numberBetween.hasError ? 'border-red-500' : ''} w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`"
+          type="text"
+          placeholder="Number Between"
+        >
+        <p
+          id="number-between-error-message"
+          class="text-red-500 text-xs italic h-4"
+        >
+          {{ errors.numberBetween.hasError ? errors.numberBetween.errorMessage : '' }}
+        </p>
+      </div>
+
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
           for="url"
         >
         Url
@@ -154,11 +176,12 @@
         </div>
       </div>
     </form>
+    {{$v}}
   </div>
 </template>
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, minLength, maxLength, email, sameAs, url } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength, email, sameAs, url, between } from 'vuelidate/lib/validators'
 import errorValidations from '../../../src/index'
 export default {
   name: "Login",
@@ -190,6 +213,9 @@ export default {
       email,
       maxLength: maxLength(7)
     },
+    numberBetween: {
+      between: between(3, 7)
+    },
     url: {
       required,
       url,
@@ -207,6 +233,7 @@ export default {
       email: '',
       emailWithLength: '',
       emailWithLengthMax: '',
+      numberBetween: '',
       password: '',
       confirmPassword: '',
       form: 'not valid'
