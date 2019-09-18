@@ -7,7 +7,14 @@ export default ({
 } = {}) => {
   if (!v) return {};
   const defaultErrors = defaultErrorsFn(useFieldNames, v);
-  const validators = ['required', 'email', 'minLength', 'sameAs', 'url'];
+  const validators = [
+    'required',
+    'email',
+    'minLength',
+    'maxLength',
+    'sameAs',
+    'url',
+  ];
   const errorMsg = customErrorMessages;
   const errorConditions = (validator, field) => {
     let hasError;
@@ -23,6 +30,9 @@ export default ({
         break;
       case 'minLength':
         hasError = !v[field].minLength;
+        break;
+      case 'maxLength':
+        hasError = !v[field].maxLength;
         break;
       case 'sameAs':
         hasError =

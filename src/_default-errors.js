@@ -16,6 +16,10 @@ export default (useFieldNames, v) => (validator, field) => {
       case 'minLength':
         errorMsg = `${field} has to be at least ${param.min} characters length`;
         break;
+      case 'maxLength':
+        errorMsg = `${field} has to be less than ${param.max +
+          1} characters length`;
+        break;
       case 'sameAs':
         errorMsg = `${field} should be same as ${param.eq} field`;
         break;
@@ -36,6 +40,10 @@ export default (useFieldNames, v) => (validator, field) => {
       break;
     case 'minLength':
       errorMsg = `This field has to be at least ${param.min} characters length`;
+      break;
+    case 'maxLength':
+      errorMsg = `This field has to be less than ${param.max +
+        1} characters length`;
       break;
     case 'sameAs':
       errorMsg = `This field should be same as ${param.eq} field`;

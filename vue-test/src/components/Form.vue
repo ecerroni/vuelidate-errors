@@ -51,6 +51,28 @@
       <div class="mb-4">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
+          for="email-with-length-max"
+        >
+        Email With Length Max
+        </label>
+        <input
+          id="email-with-length-max"
+          v-model.trim="$v.emailWithLengthMax.$model"
+          :class="`shadow appearance-none border rounded ${ errors.emailWithLengthMax.hasError ? 'border-red-500' : ''} w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`"
+          type="text"
+          placeholder="Email With Length Max"
+        >
+        <p
+          id="email-with-length-max-error-message"
+          class="text-red-500 text-xs italic h-4"
+        >
+          {{ errors.emailWithLengthMax.hasError ? errors.emailWithLengthMax.errorMessage : '' }}
+        </p>
+      </div>
+
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
           for="url"
         >
         Url
@@ -136,7 +158,7 @@
 </template>
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, minLength, email, sameAs, url } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength, email, sameAs, url } from 'vuelidate/lib/validators'
 import errorValidations from '../../../src/index'
 export default {
   name: "Login",
@@ -164,6 +186,10 @@ export default {
       email,
       minLength: minLength(17)
     },
+    emailWithLengthMax: {
+      email,
+      maxLength: maxLength(7)
+    },
     url: {
       required,
       url,
@@ -180,6 +206,7 @@ export default {
     return {
       email: '',
       emailWithLength: '',
+      emailWithLengthMax: '',
       password: '',
       confirmPassword: '',
       form: 'not valid'

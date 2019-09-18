@@ -158,7 +158,7 @@ export default {
 - [ ] requiredIf
 - [ ] requiredUnless
 - [x] minLength
-- [ ] maxLength
+- [x] maxLength
 - [ ] minValue
 - [ ] maxValue
 - [ ] between
